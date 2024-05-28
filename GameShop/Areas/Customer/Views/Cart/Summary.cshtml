@@ -1,0 +1,111 @@
+﻿@model ShoppingCartVM
+
+<form method="post">
+	<div class="card border-dark mt-4 mb-4">
+			<div class="card-header text-light py-3">
+				<div class="row px-4">
+					<div class="col-6">
+						<h3 class="text-uppercase text-white">Summary</h3>
+					</div>
+					<div class="col-6 text-end">
+						<a asp-action="Index" class="btn btn-outline-danger btn-sm">Back to Cart</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="row">
+						<div class="col-12 col-lg-6 pb-4">
+							<div class="row">
+								<h4 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-info">Shipping Details:</span>
+								</h4>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Name</label>
+								</div>
+								<div class="col-9">
+									<span>@Model.OrderHeader.Name</span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Phone</label>
+								</div>
+								<div class="col-9">
+									<span>@Model.OrderHeader.PhoneNumber</span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Street Address</label>
+								</div>
+								<div class="col-9">
+									<span>@Model.OrderHeader.StreetAddress</span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>City</label>
+								</div>
+								<div class="col-9">
+									<span>@Model.OrderHeader.City</span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Region</label>
+								</div>
+								<div class="col-9">
+									<span>@Model.OrderHeader.Region</span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Postal Code</label>
+								</div>
+								<div class="col-9">
+									<span>@Model.OrderHeader.PostalCode</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-lg-5 offset-lg-1">
+							<h4 class="d-flex justify-content-between align-items-center mb-3">
+								<span class="text-info">Order Summary:</span>
+							</h4>
+							<ul class="list-group mb-3">
+								@foreach(var details in Model.ShoppingCartList){
+								<li class="list-group-item d-flex justify-content-between">
+									<div>
+										<h6 class="my-0">@details.Product.Title</h6>
+										<small class="text-muted">Quantity: @details.Count</small>
+									</div>
+									<span class="d-flex text-muted align-items-end">@((details.Price * details.Count).ToString("c")) </span>
+								</li>
+								
+								}
+							<li class="list-group-item d-flex justify-content-between">
+								<small class="text-info">Total (PLN)</small>
+								<strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c")</strong>
+							</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer pb-0">
+				<div class="row">
+					<div class="col-12 col-md-8 pt-2">
+						<p style="color:cadetblue; font-size:14px;">
+							Estimated Arrival Date:
+							@DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()
+						</p>
+					</div>
+					<div class="col-12 col-md-4">
+						<button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>
